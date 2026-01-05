@@ -1,6 +1,13 @@
 from django.db import models
 
 
+class ComponentCondition(models.TextChoices):
+    NEW = "NEW", "New"
+    OPEN_BOX = "OPEN_BOX", "Open Box"
+    USED = "USED", "Used"
+    FOR_PARTS = "FOR_PARTS", "For Parts"
+
+
 class CPUSocket(models.TextChoices):
     # Early / pre-Pentium
     SOCKET_1 = "SOCKET_1", "Socket 1 (386)"

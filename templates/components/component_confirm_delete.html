@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %} | Delete Component{% endblock title %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-danger">
+                <div class="card-body">
+                    <h1 class="h5 text-danger">Confirm Delete</h1>
+                    <p>
+                        Are you sure you want to delete <strong>{{ object.name }}</strong>?
+                    </p>
+
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-danger">Yes, delete</button>
+                            <a
+                                href="{% url 'components:component_detail' object.pk %}"
+                                class="btn btn-outline-secondary"
+                            >
+                                Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

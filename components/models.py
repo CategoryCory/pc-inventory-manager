@@ -1,15 +1,31 @@
 from django.db import models
 from polymorphic.models import PolymorphicModel
 
-from .enums import CPUSocket, RAMType, ExpansionBus, StorageInterface, RemovableMedia
+from .enums import (
+    ComponentCondition,
+    CPUSocket,
+    RAMType,
+    ExpansionBus,
+    StorageInterface,
+    RemovableMedia,
+)
 
 
 class Component(PolymorphicModel):
     name = models.CharField(max_length=100, verbose_name='Component Name')
     quantity = models.IntegerField(default=1, verbose_name='Quantity')
+    condition = models.CharField(max_length=50,
+                                 choices=ComponentCondition,
+                                 default=ComponentCondition.NEW,
+                                 verbose_name='Condition')
+    notes = models.TextField(blank=True, null=True, verbose_name='Notes')
 
     def __str__(self) -> str:
         return self.name
+
+    @property
+    def type_name(self) -> str:
+        return self._meta.verbose_name
 
 
 class CPU(Component):

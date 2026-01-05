@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %} | Component List{% endblock title %}
+
+{% block content %}
+    <h2>Components</h2>
+    <nav class="navbar navbar-light bg-light">
+        <div class="d-flex gap-3 ps-3">
+            <a
+                href="{% url 'components:component_create' component_type='cpu' %}"
+                class="btn btn-sm btn-outline-success"
+            >
+                Add New CPU
+            </a>
+            <a
+                href="{% url 'components:component_create' component_type='gpu' %}"
+                class="btn btn-sm btn-outline-success"
+            >
+                Add New GPU
+            </a>
+            <a
+                href="{% url 'components:component_create' component_type='ram' %}"
+                class="btn btn-sm btn-outline-success"
+            >
+                Add New RAM
+            </a>
+            <a
+                href="{% url 'components:component_create' component_type='storage_drive' %}"
+                class="btn btn-sm btn-outline-success"
+            >
+                Add New Storage Drive
+            </a>
+            <a
+                href="{% url 'components:component_create' component_type='removable_storage_drive' %}"
+                class="btn btn-sm btn-outline-success"
+            >
+                Add New Removable Storage Drive
+            </a>
+        </div>
+    </nav>
+
+    {% if component_list %}
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <table class="table col-md-8 col-lg-6">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for component in component_list %}
+                            <tr>
+                                <th scope="row">{{ component.pk }}</th>
+                                <td><a href="{% url 'components:component_detail' component.pk %}">{{ component.name }}</a></td>
+                                <td>{{ component.type_name }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% else %}
+        <p class="mt-4">No components yet.</p>
+    {% endif %}
+{% endblock content %}
